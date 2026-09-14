@@ -1,0 +1,9 @@
+# Stage 1: Builder
+FROM python:3.11 as builder
+WORKDIR /app
+# ... pip install steps ...
+
+# Stage 2: Final
+FROM python:3.11-slim
+COPY --from=builder /app /app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
